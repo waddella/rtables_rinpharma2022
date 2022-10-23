@@ -23,13 +23,27 @@ tapply(df$AGE, df$ARM, mean)
 
 # To drop the levels with no observations use 
 # split functions
+## TODO
 lyt2 <- basic_table() |>
-  split_cols_by("ARM", split_fun = ) |>
+  split_cols_by("ARM", split_fun = drop_split_levels) |>
   analyze("AGE", mean, format = "xx.xx")
 
-tbl <- build_table(lyt, df)
+tbl <- build_table(lyt2, df)
 print(tbl)
 
+# reorder columns
+library(forcats)
+library(dplyr)
+
+df <- df |>
+  mutate(ARM = fct_relevel(ARM, "B", "A"))
+
+lyt3 <- basic_table() |>
+  split_cols_by("ARM", split_fun = drop_split_levels) |>
+  analyze("AGE", mean, format = "xx.xx")
+
+tbl <- build_table(lyt2, df)
+print(tbl)
 
 # Check which variables are factors
 sapply(ex_adsl, is.factor) |> which() |> names()
