@@ -49,6 +49,9 @@ lyt <- basic_table() |>
 
 build_table(lyt, ex_adsl3)
 
+# note how the root label has been lost
+# TODO: why
+
 # Stage 4
 lyt <- basic_table() |>
   split_cols_by("ARM") |>
