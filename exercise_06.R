@@ -21,9 +21,8 @@ print(tbl)
 tapply(df$AGE, df$ARM, mean)
 
 
-# To drop the levels with no observations use 
+# To drop the levels with no observations use
 # split functions
-## TODO
 lyt2 <- basic_table() |>
   split_cols_by("ARM", split_fun = drop_split_levels) |>
   analyze("AGE", mean, format = "xx.xx")
@@ -45,6 +44,3 @@ lyt3 <- basic_table() |>
 tbl <- build_table(lyt2, df)
 print(tbl)
 
-# Check which variables are factors
-sapply(ex_adsl, is.factor) |> which() |> names()
-levels(ex_adsl$COUNTRY)
