@@ -1,48 +1,47 @@
-
+## In This Exerise
+##  - Modify double_trouble so that the first level is the one repeated
+##  - Change the text that is displayed for the column in the dont_split example to "everybody"
 
 library(rtables)
 
 help("custom_split_funs")
 
-# look at an actual implementation
-remove_split_levels # TODO: choose the simplest one
 
 
-# No split ---
-dont_split <- function(df, spl, vals, labels = NULL) {
-    
+double_trouble <- function(df, spl, vals, labels, trim) {
+    ret <- do_base_split(spl, df, vals = vals,
+                         labels = labels, trim = trim)
+    ret$datasplit <- c(ret$datasplit, tail(ret$datasplit, 1))
+    ret$values <- c(ret$values, tail(ret$values, 1))
+    ret$labels <- c(ret$labels, tail(ret$labels, 1))
+    ret$extras <- c(ret$extras, tail(ret$extras, 1))
+    ret
 }
 
 lyt <- basic_table() |>
-  split_cols_by("ARM", split_fun = dont_split) |>
+  split_cols_by("ARM", split_fun = double_trouble) |>
   analyze("AGE", mean, format = "xx.xx")
 
 build_table(lyt, ex_adsl)
 
 
-# Split cont. variable win histogram bins
 
-# this is called a closure (http://adv-r.had.co.nz/Functional-programming.html#closures)
-split_hist_bins <- function(breaks) {
-  function(df, spl, vals, labels = NULL) {
-    brks <- hist(df[[varname]], breaks = breaks, plot = FALSE)
-    # TODO
-  }
+## Most of the time, custom functions are built on top of those we provide
+
+dont_split <- function() {
+    combodf <- data.frame(valname = "ALL",
+                          label = "All of them",
+                          levelcombo = I(list(select_all_levels)),
+                          exargs = I(list(list())),
+                          stringsAsFactors = FALSE)
+    add_combo_levels(combodf, trim = FALSE, first = TRUE, keep_levels = "ALL")
 }
 
-lyt <- basic_table() |>
-  split_cols_by("ARM", split_fun = dont_split) |>
+lyt2 <- basic_table() |>
+  split_cols_by("ARM", split_fun = dont_split()) |>
   analyze("AGE", mean, format = "xx.xx")
 
-build_table(lyt, ex_adsl)
+build_table(lyt2, ex_adsl)
 
 
-# Biomarker Evaluable Population vs All
-#
-
-# TODO
-
-#      A             B    
-#    BEP  ALL    BEP  All
-# ------------------------
 
