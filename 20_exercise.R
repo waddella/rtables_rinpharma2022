@@ -16,7 +16,7 @@ s_events_patients <- function(x, labelstr, .N_col) {
   in_rows(
     "Total number of patients with at least one event" =
       rcell(length(unique(x)) * c(1, 1 / .N_col), format = "xx (xx.xx%)"),
-    
+
     "Total number of events" = rcell(length(x), format = "xx")
   )
 }
@@ -43,4 +43,39 @@ tbl
 
 ## sort highest count
 
-# TODO
+                                        # TODO
+
+table_count_grade_once_per_id <- function(df,
+                                          labelstr = "",
+                                          gradevar = "AETOXGR",
+                                          idvar = "USUBJID",
+                                          grade_levels = NULL) {
+    id <- df[[idvar]]
+    grade <- df[[gradevar]]
+
+    if (!is.null(grade_levels)) {
+        stopifnot(all(grade %in% grade_levels))
+        grade <- factor(grade, levels = grade_levels)
+    }
+
+    id_sel <- !duplicated(id)
+
+    in_rows(
+        "--Any Grade--" = sum(id_sel),
+        .list =  as.list(table(grade[id_sel]))
+    )
+}
+
+
+lyt <- basic_table() %>%
+    split_cols_by("ARM") %>%
+    add_colcounts() %>%
+    analyze("USUBJID", afun = s_events_patients, show_labels = "hidden") %>%
+    split_rows_by("AEBODSYS", split_fun = add_overall_level("- Any adverse events - "), child_labels = "visible", indent_mod = -1) %>%
+    summarize_row_groups(cfun = table_count_grade_once_per_id, format = "xx", indent_mod = 0) %>%
+    split_rows_by("AEDECOD", split_fun = drop_split_levels, child_labels = "visible", indent_mod = 0, section_div = " ")  %>%
+    analyze("AETOXGR",
+            afun = table_count_grade_once_per_id,
+            extra_args = list(grade_levels = 1:5), show_labels = "hidden")
+
+tbl <- build_table(lyt, ex_adae, alt_counts_df = ex_adsl)

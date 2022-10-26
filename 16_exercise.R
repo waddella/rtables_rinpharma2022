@@ -3,9 +3,8 @@
 library(rtables)
 
 # N = xx
-lyt <- basic_table() |>
+lyt <- basic_table(show_colcounts = TRUE) |>
   split_cols_by("ARM") |>
-  add_colcounts() |>
   analyze("AGE", mean, format = "xx.xx")
 
 build_table(lyt, ex_adsl)
@@ -24,10 +23,16 @@ alt_adsl
 build_table(lyt, ex_adsl, alt_counts_df = alt_adsl)
 
 
+ex_adsl2 <- ex_adsl
+ex_adsl2$arm_labs <- c("Our Drug", "Fake Drug", "Both")[ex_adsl2$ARM]
 # Name vs. labels ----
+lyt <- basic_table(show_colcounts = TRUE) |>
+  split_cols_by("ARM", labels_var = "arm_labs") |>
+  analyze("AGE", mean, format = "xx.xx")
 
-# TODO Variable names labels
+tbl <- build_table(lyt, ex_adsl2)
 
-# TODO split names, lables
+## Notice the real values appear in the paths, NOT our labels
+col_paths(tbl)
 
 
