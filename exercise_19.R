@@ -20,13 +20,7 @@ build_table(lyt, ex_adsl3)
 # Stage 2
 lyt <- basic_table() |>
   split_cols_by("ARM") |>
-  summarize_row_groups(cfun = function(x, labelstr) {
-    lst <- setNames(
-      list(rcell("r", format = "xx")),
-      labelstr
-    )
-    in_rows(.list = lst)
-  }) |>
+  summarize_row_groups() |>
   split_rows_by("SEX") |> 
   split_rows_by("B1HL") |>
   analyze("AGE", \(x) list(B = "a"))
@@ -56,13 +50,7 @@ build_table(lyt, ex_adsl3)
 lyt <- basic_table() |>
   split_cols_by("ARM") |>
   split_rows_by("SEX") |> 
-  summarize_row_groups(cfun = function(x, labelstr) {
-    lst <- setNames(
-      list(rcell("s", format = "xx")),
-      labelstr
-    )
-    in_rows(.list = lst)
-  }) |>
+  summarize_row_groups() |>
   split_rows_by("B1HL") |>
   analyze("AGE", \(x) list(B = "a"))
 
@@ -73,13 +61,7 @@ lyt <- basic_table() |>
   split_cols_by("ARM") |>
   split_rows_by("SEX") |> 
   split_rows_by("B1HL") |>
-  summarize_row_groups(cfun = function(x, labelstr) {
-    lst <- setNames(
-      list(rcell("bm", format = "xx")),
-      labelstr
-    )
-    in_rows(.list = lst)
-  }) |>
+  summarize_row_groups() |>
   analyze("AGE", \(x) list(B = "a"))
 
 build_table(lyt, ex_adsl3)

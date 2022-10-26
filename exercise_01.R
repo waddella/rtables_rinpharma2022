@@ -1,6 +1,4 @@
 
-# Exercise R in Pharma 2022 rtables workshop
-
 library(rtables)
 
 lyt <- basic_table() |>
@@ -10,3 +8,5 @@ lyt <- basic_table() |>
 tbl <- build_table(lyt, ex_adsl)
 
 print(tbl)
+
+Viewer(tbl)
