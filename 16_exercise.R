@@ -35,4 +35,3 @@ tbl <- build_table(lyt, ex_adsl2)
 ## Notice the real values appear in the paths, NOT our labels
 col_paths(tbl)
 
-
