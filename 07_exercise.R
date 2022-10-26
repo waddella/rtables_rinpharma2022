@@ -75,4 +75,3 @@ lyt <- basic_table() |>
   analyze("AGE", afun = a_summary2, show_labels = "visible")
 
 build_table(lyt, ex_adsl)
-

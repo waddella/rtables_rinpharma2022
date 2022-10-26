@@ -15,13 +15,12 @@ lyt <- basic_table(
   ),
   main_footer = "",
   prov_footer = c(
-      "",
-      paste("Data Hash:", digest::digest(ex_adsl))
+    "",
+    paste("Data Hash:", digest::digest(ex_adsl))
   ),
   show_colcounts = TRUE
 ) |>
-split_cols_by("ARM",
-              split_fun = add_overall_level(first = FALSE, label = "All Patients")) |>
+  split_cols_by("ARM",split_fun = add_overall_level(first = FALSE, label = "All Patients")) |>
   analyze(vars, section_div = " ", var_labels = var_labels(ex_adsl[, vars]))
 
 tbl <- build_table(lyt, ex_adsl)

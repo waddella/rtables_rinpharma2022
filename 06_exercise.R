@@ -1,6 +1,9 @@
 
 library(rtables)
 
+
+library(rtables)
+
 lyt <- basic_table() |>
   analyze("AGE")
 

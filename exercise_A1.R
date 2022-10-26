@@ -2,7 +2,6 @@
 library(formatters) # rtables depends on formatters
 
 data(package = "formatters")
-# Todo fix titles
 
 View(ex_adsl)
 

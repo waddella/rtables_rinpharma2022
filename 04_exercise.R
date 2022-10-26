@@ -1,10 +1,9 @@
 
-
 ## Printable-page type exporters (txt, pdf, rtf) support
 ## pagination specification in exactly the same
 ## way as direct calls to paginate_table does.
 
-source("solution_02.R")
+source("02_solution.R")
 
 # Save as txt file, \n>>>>\n page separator
 export_as_txt(tbl, file = "./text_output_01.txt", page_type = "a4", font_size = 12, paginate = TRUE,

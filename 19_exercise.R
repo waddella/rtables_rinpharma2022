@@ -1,5 +1,4 @@
 
-
 # Group summaries
 
 library(rtables)

@@ -20,6 +20,3 @@ build_table(lyt, ex_adsl)
 
 # Exercise:
 # create a_count_percentage with the argument denom = c("n", "N") to choose which denominator to use
-
-
-

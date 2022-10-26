@@ -2,7 +2,7 @@
 library(rtables)
 library(tern)
 
-vars <- names(ex_adsl)[!grepl("(ID|DT|ARM|study_duration)", names(ex_adsl))]
+vars <- names(ex_adsl)[!grepl("(ID|DT|ARM|study_duration|DCSREAS)", names(ex_adsl))]
 var_lbls <- var_labels(ex_adsl)[vars]
 
 lyt <- basic_table() |>
