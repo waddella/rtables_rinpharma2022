@@ -6,6 +6,8 @@
 
 library(rtables)
 
+vars <- names(ex_adsl)[!grepl("(ID|DT|ARM|study_duration)", names(ex_adsl))]
+
 lyt <- basic_table(
   title = "Demographic Table all Patients",
   subtitles = c(
@@ -15,11 +17,11 @@ lyt <- basic_table(
   main_footer = "Data has been generated with the random.cdisc.data package.",
   prov_footer = c(
     "File: rtables_rinpharma2022/exercise_02.R"
-  )
+  ),
+  show_colcounts = TRUE
 ) |>
   split_cols_by("ARM", split_fun = add_overall_level(first = FALSE, label = "All Patients")) |>
-  add_colcounts() |>
-  analyze(c("AGE", "SEX", "COUNTRY", "BMRKR1", "BMRKR2"))
+  analyze(vars, section_div = " ")
 
 tbl <- build_table(lyt, ex_adsl)
 
